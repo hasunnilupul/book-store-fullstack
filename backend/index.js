@@ -1,5 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
+import cors from "cors";
 import { configDotenv } from "dotenv";
 import router from "./router/index.js";
 
@@ -11,6 +12,16 @@ configDotenv({ path: envFile });
 
 // create express app
 const app = express();
+
+// cors options
+const corsOptions = {
+    origin: process.env.FRONTEND_HOST,
+    methods: process.env.ALLOWED_HTTP_METHODS,
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
+// enable cors with the configurations
+app.use(cors(corsOptions));
 
 // middleware for parsing json
 app.use(express.json());
