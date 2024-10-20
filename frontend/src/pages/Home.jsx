@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { MdAdd, MdOutlineDelete } from "react-icons/md";
-import { BsInfoCircle } from "react-icons/bs";
+import { FaRegEye } from "react-icons/fa";
 import { AiOutlineEdit } from "react-icons/ai";
 import PageLoader from "../components/PageLoader";
 import Alert from "../components/Alert";
@@ -123,10 +123,10 @@ const Home = () => {
                 <td className="border border-slate-700 rounded-md text-center">
                   <div className="flex justify-center gap-x-4">
                     <Link to={`/books/${book.id}`}>
-                      <BsInfoCircle className="text-2xl text-green-800" />
+                      <FaRegEye className="text-2xl text-gray-600" />
                     </Link>
                     <Link to={`/books/${book.id}/edit`}>
-                      <AiOutlineEdit className="text-2xl text-yellow-600" />
+                      <AiOutlineEdit className="text-2xl text-blue-500" />
                     </Link>
                     <button
                       type="button"
