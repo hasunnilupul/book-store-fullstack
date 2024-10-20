@@ -30,7 +30,7 @@ const ViewBook = () => {
       );
       const { data } = resp.data;
       setBook(data);
-    } catch ({response, message}) {
+    } catch ({ response, message }) {
       setAlert({
         show: true,
         severity: ALERT_SEVERITY.ERROR,
@@ -49,6 +49,12 @@ const ViewBook = () => {
   return (
     <div className="p-4">
       <BackButton />
+      <h2 className="mt-3 text-lg font-semibold leading-7 text-gray-900">
+        Create book
+        <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+          Book details and information.
+        </p>
+      </h2>
 
       {/* Alert */}
       {alert.show && (
@@ -70,35 +76,47 @@ const ViewBook = () => {
       {isLoading ? (
         <PageLoader />
       ) : (
-        <div className="flex flex-col border-2 border-sky-400 rounded-xl w-fit p-4 mt-4">
-          <div className="my-4">
-            <span className="text-xl mr-4 text-gray-500">Id</span>
-            <span>{book?.id}</span>
-          </div>
-          <div className="my-4">
-            <span className="text-xl mr-4 text-gray-500">Title</span>
-            <span>{book?.title}</span>
-          </div>
-          <div className="my-4">
-            <span className="text-xl mr-4 text-gray-500">Author</span>
-            <span>{book?.author}</span>
-          </div>
-          <div className="my-4">
-            <span className="text-xl mr-4 text-gray-500">Publisher On</span>
-            <span>{book?.publishedYear}</span>
-          </div>
-          <div className="my-4">
-            <span className="text-xl mr-4 text-gray-500">Created On</span>
-            <span>
-              {book?.createdAt && new Date(book?.createdAt).toLocaleString()}
-            </span>
-          </div>
-          <div className="my-4">
-            <span className="text-xl mr-4 text-gray-500">Last Updated On</span>
-            <span>
-              {book?.updatedAt && new Date(book?.updatedAt).toLocaleString()}
-            </span>
-          </div>
+        <div className="flex flex-col mt-3 w-full border-t border-gray-100">
+          <dl className="divide-y divide-gray-100">
+            <div className="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              <dt className="text-sm font-medium leading-6 text-gray-900">
+                Title
+              </dt>
+              <dd className="mt-1 sm:col-span-2 sm:mt-0">{book?.title}</dd>
+            </div>
+            <div className="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              <dt className="text-sm font-medium leading-6 text-gray-900">
+                Author
+              </dt>
+              <dd className="mt-1 text-sm sm:col-span-2 sm:mt-0">
+                {book?.author}
+              </dd>
+            </div>
+            <div className="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              <dt className="text-sm font-medium leading-6 text-gray-900">
+                Published On
+              </dt>
+              <dd className="mt-1 text-sm sm:col-span-2 sm:mt-0">
+                {book?.publishedYear}
+              </dd>
+            </div>
+            <div className="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              <dt className="text-sm font-medium leading-6 text-gray-900">
+                Created On
+              </dt>
+              <dd className="mt-1 text-sm sm:col-span-2 sm:mt-0">
+                {new Date(book?.createdAt).toLocaleString()}
+              </dd>
+            </div>
+            <div className="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              <dt className="text-sm font-medium leading-6 text-gray-900">
+                Last Updated On
+              </dt>
+              <dd className="mt-1 text-sm sm:col-span-2 sm:mt-0">
+                {new Date(book?.updatedAt).toLocaleString()}
+              </dd>
+            </div>
+          </dl>
         </div>
       )}
     </div>
