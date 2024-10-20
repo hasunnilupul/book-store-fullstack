@@ -30,11 +30,11 @@ const ViewBook = () => {
       );
       const { data } = resp.data;
       setBook(data);
-    } catch (error) {
+    } catch ({response, message}) {
       setAlert({
         show: true,
         severity: ALERT_SEVERITY.ERROR,
-        message: error.message,
+        message: response?.data?.message || message,
       });
     } finally {
       setIsLoading(false);

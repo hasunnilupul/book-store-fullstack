@@ -7,6 +7,7 @@ import { AiOutlineEdit } from "react-icons/ai";
 import PageLoader from "../components/PageLoader";
 import Alert from "../components/Alert";
 import { ALERT_SEVERITY } from "../utils/constants";
+import CreateBookModal from "../components/CreateBookModal";
 
 const Home = () => {
   const [books, setBooks] = useState([]);
@@ -16,6 +17,7 @@ const Home = () => {
     severity: ALERT_SEVERITY.INFO,
     message: "",
   });
+  const [openCreateBookModal, setOpenCreateBookModal] = useState(false);
 
   // fetch all the books
   const fetchBooks = async () => {
@@ -31,16 +33,22 @@ const Home = () => {
       );
       const { data } = resp.data;
       setBooks(data);
-    } catch (error) {
+    } catch ({response, message}) {
       setAlert({
         show: true,
         severity: ALERT_SEVERITY.ERROR,
-        message: error.message,
+        message: response?.data?.message || message,
       });
     } finally {
       setIsLoading(false);
     }
   };
+
+  // create book modal submit event handler
+  const hanldeCreateBookModalOnSubmit = (book) => {
+    setBooks(prevState => [...prevState, book]);
+    setOpenCreateBookModal(false);
+  }
 
   // delete a book
   const handleDeleteButtonOnClick = async (bookId) => {
@@ -57,9 +65,10 @@ const Home = () => {
       <div className="flex justify-between items-center">
         <h1 className="text-3xl my-8">Books List</h1>
 
-        <Link to="/books">
+        {/* Create new Book button */}
+        <button type="button" onClick={() => setOpenCreateBookModal(true)}>
           <MdOutlineAddBox className="text-sky-800 text-4xl" />
-        </Link>
+        </button>
       </div>
 
       {/* Alert */}
@@ -111,7 +120,7 @@ const Home = () => {
                 <td className="border border-slate-700 rounded-md text-center max-md:hidden">
                   {book?.publishedYear}
                 </td>
-                <td className="border border-slate-700 rounded-md text-center max-md:hidden">
+                <td className="border border-slate-700 rounded-md text-center">
                   <div className="flex justify-center gap-x-4">
                     <Link to={`/books/${book.id}`}>
                       <BsInfoCircle className="text-2xl text-green-800" />
@@ -131,6 +140,15 @@ const Home = () => {
             ))}
           </tbody>
         </table>
+      )}
+
+      {/* Create Book Modal */}
+      {openCreateBookModal && (
+        <CreateBookModal
+          open={openCreateBookModal}
+          onClose={setOpenCreateBookModal}
+          onSubmit={hanldeCreateBookModalOnSubmit}
+        />
       )}
     </div>
   );
