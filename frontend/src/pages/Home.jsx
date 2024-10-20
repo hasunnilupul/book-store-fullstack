@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { MdOutlineAddBox, MdOutlineDelete } from "react-icons/md";
+import { MdAdd, MdOutlineDelete } from "react-icons/md";
 import { BsInfoCircle } from "react-icons/bs";
 import { AiOutlineEdit } from "react-icons/ai";
 import PageLoader from "../components/PageLoader";
@@ -66,8 +66,8 @@ const Home = () => {
         <h1 className="text-3xl my-8">Books List</h1>
 
         {/* Create new Book button */}
-        <button type="button" onClick={() => setOpenCreateBookModal(true)}>
-          <MdOutlineAddBox className="text-sky-800 text-4xl" />
+        <button type="button" onClick={() => setOpenCreateBookModal(true)} className="rounded-md bg-sky-600 p-1 text-sm font-semibold text-white shadow-sm hover:bg-sky-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600">
+          <MdAdd className="text-current text-4xl" />
         </button>
       </div>
 
